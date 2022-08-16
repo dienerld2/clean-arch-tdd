@@ -10,12 +10,18 @@
       "git add"
     ]
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
   "packageManager": "yarn@3.2.2",
   "devDependencies": {
     "eslint": "^8.0.1",
     "eslint-config-standard": "latest",
     "eslint-plugin-n": "^15.0.0",
     "eslint-plugin-promise": "^6.0.0",
+    "husky": "^8.0.1",
     "lint-staged": "^13.0.3"
   }
 }
