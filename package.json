@@ -4,17 +4,8 @@
   "main": "index.js",
   "author": "Diener Dornelas <diener.ld@outlook.com>",
   "license": "MIT",
-  "lint-staged": {
-    "*.js": [
-      "eslint --fix",
-      "git add"
-    ]
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
+
+
   "packageManager": "yarn@3.2.2",
   "devDependencies": {
     "eslint": "^8.0.1",
