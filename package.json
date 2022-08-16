@@ -1,0 +1,8 @@
+{
+  "name": "clean-node-api",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Diener Dornelas <diener.ld@outlook.com>",
+  "license": "MIT",
+  "packageManager": "yarn@3.2.2"
+}
