@@ -4,5 +4,12 @@
   "main": "index.js",
   "author": "Diener Dornelas <diener.ld@outlook.com>",
   "license": "MIT",
-  "packageManager": "yarn@3.2.2"
+  "packageManager": "yarn@3.2.2",
+  "devDependencies": {
+    "eslint": "^8.0.1",
+    "eslint-config-standard": "latest",
+    "eslint-plugin-import": "^2.25.2",
+    "eslint-plugin-n": "^15.0.0",
+    "eslint-plugin-promise": "^6.0.0"
+  }
 }
