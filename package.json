@@ -8,7 +8,8 @@
     "postinstall": "husky install",
     "prepack": "pinst --disable",
     "postpack": "pinst --enable",
-    "test": "jest"
+    "test": "jest --watchAll",
+    "test:staged": "jest"
   },
   "packageManager": "yarn@3.2.2",
   "devDependencies": {
