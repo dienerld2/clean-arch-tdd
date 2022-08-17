@@ -15,10 +15,16 @@ module.exports = class HttpResponse {
     }
   }
 
-  static unauthorized () {
+  static unauthorizedError () {
     return {
       statusCode: 401,
       body: new UnauthorizedError()
+    }
+  }
+
+  static ok () {
+    return {
+      statusCode: 200
     }
   }
 }
