@@ -9,7 +9,7 @@
     "prepack": "pinst --disable",
     "postpack": "pinst --enable",
     "test": "jest --watchAll",
-    "test:staged": "jest"
+    "test:staged": "jest --passWithNoTests"
   },
   "packageManager": "yarn@3.2.2",
   "devDependencies": {
