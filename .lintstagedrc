@@ -1,6 +1,6 @@
 {
-    "*.js": [
-      "eslint --fix",
-      "npm run test:staged"
-    ]
+  "*.ts": [
+    "eslint --fix",
+    "npm run test:staged"
+  ]
 }

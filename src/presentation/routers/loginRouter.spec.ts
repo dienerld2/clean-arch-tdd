@@ -1,11 +1,13 @@
-const LoginRouter = require('./loginRouter')
-const MissingParamError = require('../helpers/missingParamError')
-const InvalidParamError = require('../helpers/invalidParamError')
-const UnauthorizedError = require('../helpers/unauthorizedError')
-const ServerError = require('../helpers/serverError')
+import { LoginRouter } from './loginRouter'
+import { MissingParamError } from '../helpers/missingParamError'
+import { InvalidParamError } from '../helpers/invalidParamError'
+import { UnauthorizedError } from '../helpers/unauthorizedError'
+import { ServerError } from '../helpers/serverError'
 
 const makeEmailValidator = () => {
   class EmailValidatorSpy {
+    email: any
+    isEmailValid: any
     isValid (email) {
       this.email = email
       return this.isEmailValid
@@ -17,6 +19,9 @@ const makeEmailValidator = () => {
 }
 const makeAuthUseCase = () => {
   class AuthUseCaseSpy {
+    email: any
+    password: any
+    accessToken: any
     async auth (email, password) {
       this.email = email
       this.password = password
@@ -66,7 +71,7 @@ describe('Login Router', () => {
   test('Should return 500 if no httpRequest is provided', async () => {
     const { sut } = makeSut()
 
-    const httpResponse = await sut.route()
+    const httpResponse = await sut.route({})
     expect(httpResponse.statusCode).toBe(500)
     expect(httpResponse.body).toEqual(new ServerError())
   })
@@ -124,7 +129,7 @@ describe('Login Router', () => {
   })
 
   test('Should return 500 if no AuthUseCase is provided', async () => {
-    const sut = new LoginRouter()
+    const sut = new LoginRouter({}, {})
 
     const HttpRequest = {
       body: {
@@ -140,7 +145,7 @@ describe('Login Router', () => {
 
   test('Should return 500 if AuthUseCase has no auth method', async () => {
     class AuthUseCaseSpy {}
-    const sut = new LoginRouter(AuthUseCaseSpy)
+    const sut = new LoginRouter(AuthUseCaseSpy, {})
 
     const HttpRequest = {
       body: {
@@ -160,7 +165,7 @@ describe('Login Router', () => {
         throw new Error()
       }
     }
-    const sut = new LoginRouter(AuthUseCaseSpy)
+    const sut = new LoginRouter(AuthUseCaseSpy, {})
 
     const HttpRequest = {
       body: {
@@ -190,7 +195,7 @@ describe('Login Router', () => {
   })
 
   test('Should return 500 if no EmailValidator is provided', async () => {
-    const sut = new LoginRouter(makeAuthUseCase())
+    const sut = new LoginRouter(makeAuthUseCase(), {})
 
     const HttpRequest = {
       body: {

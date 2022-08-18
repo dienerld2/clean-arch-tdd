@@ -1,14 +1,17 @@
-const HttpResponse = require('../helpers/httpResponse')
-const MissingParamError = require('../helpers/missingParamError')
-const InvalidParamError = require('../helpers/invalidParamError')
+import { HttpResponse, IHttpResponse } from '../helpers/httpResponse'
+import { MissingParamError } from '../helpers/missingParamError'
+import { InvalidParamError } from '../helpers/invalidParamError'
 
-module.exports = class LoginRouter {
+class LoginRouter {
+  emailValidator: any
+  authUseCase: any
+
   constructor (authUseCase, emailValidator) {
     this.authUseCase = authUseCase
     this.emailValidator = emailValidator
   }
 
-  async route (httpRequest) {
+  async route (httpRequest): Promise<IHttpResponse> {
     try {
       const { email, password } = httpRequest.body
 
@@ -35,3 +38,5 @@ module.exports = class LoginRouter {
     }
   }
 }
+
+export { LoginRouter }
