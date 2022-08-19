@@ -8,9 +8,11 @@
     "postinstall": "husky install",
     "prepack": "pinst --disable",
     "postpack": "pinst --enable",
-    "test": "jest --watch --silent --noStackTrace",
-    "test:staged": "jest --passWithNoTests --findRelatedTests --silent",
-    "test:ci": "jest --coverage --noStackTrace --silent"
+    "test": "jest --silent --noStackTrace --passWithNoTests ",
+    "test:unit": "yarn test --watch -c jest-unit.config.ts",
+    "test:integration": "yarn test --watch -c jest-integration.config.ts",
+    "test:staged": "yarn test --findRelatedTests",
+    "test:ci": "yarn test --coverage"
   },
   "packageManager": "yarn@3.2.2",
   "devDependencies": {
@@ -28,6 +30,7 @@
     "lint-staged": "^13.0.3",
     "pinst": "^3.0.0",
     "ts-jest": "^28.0.8",
+    "ts-node": "^10.9.1",
     "typescript": "^4.7.4"
   }
 }
