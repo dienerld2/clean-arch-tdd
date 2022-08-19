@@ -15,13 +15,25 @@ class AuthUseCase {
   }
 }
 
-const makeSut = (loadUserByEmailRepositorySpy?: any) => {
-  return new AuthUseCase(loadUserByEmailRepositorySpy);
+const makeSut = () => {
+  class LoadUserByEmailRepositorySpy {
+    email: string;
+
+    async load (email: string) {
+      this.email = email;
+      return null;
+    }
+  }
+
+  const loadUserByEmailRepositorySpy = new LoadUserByEmailRepositorySpy();
+  const sut = new AuthUseCase(loadUserByEmailRepositorySpy);
+
+  return { sut, loadUserByEmailRepositorySpy };
 };
 
 describe('Auth UseCase', () => {
   it('should return null if email is provided', async () => {
-    const sut = makeSut();
+    const { sut } = makeSut();
 
     const promise = sut.auth(null, null);
 
@@ -29,7 +41,7 @@ describe('Auth UseCase', () => {
   });
 
   it('should return null if password is provided', async () => {
-    const sut = makeSut();
+    const { sut } = makeSut();
 
     const promise = sut.auth('any_email@mail.com', '');
 
@@ -37,17 +49,7 @@ describe('Auth UseCase', () => {
   });
 
   it('should call LoadUserByEmailRepository with correct email', async () => {
-    class LoadUserByEmailRepositorySpy {
-      email: string;
-
-      async load (email: string) {
-        this.email = email;
-        return null;
-      }
-    }
-
-    const loadUserByEmailRepositorySpy = new LoadUserByEmailRepositorySpy();
-    const sut = makeSut(loadUserByEmailRepositorySpy);
+    const { sut, loadUserByEmailRepositorySpy } = makeSut();
 
     await sut.auth('any_email@mail.com', 'any_password');
 
