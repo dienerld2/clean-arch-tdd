@@ -1,0 +1,33 @@
+{
+  "name": "clean-node-api",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Diener Dornelas <diener.ld@outlook.com>",
+  "license": "MIT",
+  "scripts": {
+    "postinstall": "husky install",
+    "prepack": "pinst --disable",
+    "postpack": "pinst --enable",
+    "test": "jest --watch --silent --noStackTrace",
+    "test:staged": "jest --passWithNoTests --findRelatedTests --silent",
+    "test:ci": "jest --coverage --noStackTrace --silent"
+  },
+  "packageManager": "yarn@3.2.2",
+  "devDependencies": {
+    "@types/jest": "^28.1.7",
+    "@types/node": "^18.7.6",
+    "@typescript-eslint/eslint-plugin": "latest",
+    "@typescript-eslint/parser": "latest",
+    "eslint": "^8.0.1",
+    "eslint-config-standard": "latest",
+    "eslint-plugin-import": "^2.25.2",
+    "eslint-plugin-n": "^15.0.0",
+    "eslint-plugin-promise": "^6.0.0",
+    "husky": "^8.0.0",
+    "jest": "^28.1.3",
+    "lint-staged": "^13.0.3",
+    "pinst": "^3.0.0",
+    "ts-jest": "^28.0.8",
+    "typescript": "^4.7.4"
+  }
+}
