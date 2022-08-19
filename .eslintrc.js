@@ -16,6 +16,7 @@ module.exports = {
     '@typescript-eslint'
   ],
   rules: {
-    semi: ['error', 'always']
+    semi: ['error', 'always'],
+    'no-useless-constructor': 'off'
   }
 };
