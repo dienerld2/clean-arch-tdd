@@ -2,6 +2,8 @@
 export default {
   preset: 'ts-jest',
   testEnvironment: 'node',
-  testMatch: ['**/*.{test|spec}.ts']
+  coverageDirectory: 'coverage',
+  collectCoverageFrom: ['**/src/**/*.ts'],
+  testMatch: ['**/*.{test,spec}.ts']
 
 }
