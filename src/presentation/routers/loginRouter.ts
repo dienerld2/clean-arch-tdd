@@ -1,6 +1,5 @@
+import { InvalidParamError, MissingParamError } from '../errors'
 import { HttpResponse, IHttpResponse } from '../helpers/httpResponse'
-import { MissingParamError } from '../helpers/missingParamError'
-import { InvalidParamError } from '../helpers/invalidParamError'
 
 class LoginRouter {
   emailValidator: any

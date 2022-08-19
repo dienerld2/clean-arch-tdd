@@ -1,8 +1,5 @@
+import { InvalidParamError, MissingParamError, ServerError, UnauthorizedError } from '../errors'
 import { LoginRouter } from './loginRouter'
-import { MissingParamError } from '../helpers/missingParamError'
-import { InvalidParamError } from '../helpers/invalidParamError'
-import { UnauthorizedError } from '../helpers/unauthorizedError'
-import { ServerError } from '../helpers/serverError'
 
 const makeEmailValidator = () => {
   class EmailValidatorSpy {

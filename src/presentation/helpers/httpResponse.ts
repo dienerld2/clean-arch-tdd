@@ -1,5 +1,5 @@
-import { ServerError } from './serverError'
-import { UnauthorizedError } from './unauthorizedError'
+import { ServerError } from '../errors/serverError'
+import { UnauthorizedError } from '../errors/unauthorizedError'
 
 export interface IHttpResponse{
   statusCode: number,
