@@ -8,7 +8,7 @@
     "postinstall": "husky install",
     "prepack": "pinst --disable",
     "postpack": "pinst --enable",
-    "test": "jest --silent --noStackTrace --passWithNoTests ",
+    "test": "jest --silent --noStackTrace --passWithNoTests",
     "test:unit": "yarn test --watch -c jest-unit.config.ts",
     "test:integration": "yarn test --watch -c jest-integration.config.ts",
     "test:staged": "yarn test --findRelatedTests",
