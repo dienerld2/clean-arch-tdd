@@ -1,4 +1,4 @@
-import { InvalidParamError, MissingParamError } from '../errors';
+import { InvalidParamError, MissingParamError } from '../../utils/errors';
 import { HttpResponse, IHttpResponse } from '../helpers/httpResponse';
 
 class LoginRouter {

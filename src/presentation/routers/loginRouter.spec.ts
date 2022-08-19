@@ -1,4 +1,5 @@
-import { InvalidParamError, MissingParamError, ServerError, UnauthorizedError } from '../errors';
+import { MissingParamError, InvalidParamError } from '../../utils/errors';
+import { ServerError, UnauthorizedError } from '../errors';
 import { LoginRouter } from './loginRouter';
 
 const makeEmailValidator = () => {
