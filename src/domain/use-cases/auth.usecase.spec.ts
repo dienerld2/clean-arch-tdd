@@ -4,7 +4,10 @@ import { AuthUseCase } from './auth.usecase';
 const makeSut = () => {
   class LoadUserByEmailRepositorySpy {
     email: string;
-    user: Object;
+    user: {
+      email?: string;
+      password?: string;
+    };
 
     async load (email: string) {
       this.email = email;
@@ -12,11 +15,25 @@ const makeSut = () => {
     }
   }
 
-  const loadUserByEmailRepositorySpy = new LoadUserByEmailRepositorySpy();
-  loadUserByEmailRepositorySpy.user = {};
-  const sut = new AuthUseCase(loadUserByEmailRepositorySpy);
+  class EncryptSpy {
+    password: string;
+    hashedPassword: string;
 
-  return { sut, loadUserByEmailRepositorySpy };
+    async compare (password: string, hashedPassword: string) {
+      this.password = password;
+      this.hashedPassword = hashedPassword;
+    }
+  }
+
+  const encryptSpy = new EncryptSpy();
+  const loadUserByEmailRepositorySpy = new LoadUserByEmailRepositorySpy();
+  loadUserByEmailRepositorySpy.user = {
+    password: 'hashed_password'
+  };
+
+  const sut = new AuthUseCase(loadUserByEmailRepositorySpy, encryptSpy);
+
+  return { sut, loadUserByEmailRepositorySpy, encryptSpy };
 };
 
 describe('Auth UseCase', () => {
@@ -45,7 +62,7 @@ describe('Auth UseCase', () => {
   });
 
   it('should throw if no repository is provided', async () => {
-    const sut = new AuthUseCase(null);
+    const sut = new AuthUseCase(null, null);
 
     const promise = sut.auth('any_email@mail.com', 'any_password');
 
@@ -67,5 +84,14 @@ describe('Auth UseCase', () => {
     const accessToken = await sut.auth('valid_email@mail.com', 'invalid_password');
 
     expect(accessToken).toBeNull();
+  });
+
+  it('should call Encrypt with correct value', async () => {
+    const { sut, loadUserByEmailRepositorySpy, encryptSpy } = makeSut();
+
+    await sut.auth('valid_email@mail.com', 'any_password');
+
+    expect(encryptSpy.password).toBe('any_password');
+    expect(encryptSpy.hashedPassword).toBe(loadUserByEmailRepositorySpy.user.password);
   });
 });

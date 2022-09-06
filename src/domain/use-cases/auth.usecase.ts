@@ -3,8 +3,15 @@ import { MissingParamError } from '../../utils/errors';
 interface ILoadUserByEmailRepository{
   load(email: string): Promise<any>;
 }
+
+interface IEncrypt{
+  compare(password: string, hashedPassword: string): Promise<any>;
+}
 class AuthUseCase {
-  constructor (readonly loadUserByEmailRepository: ILoadUserByEmailRepository) {}
+  constructor (
+    private readonly loadUserByEmailRepository: ILoadUserByEmailRepository,
+    private readonly encrypt: IEncrypt
+  ) {}
 
   async auth (email: string, password: string) {
     if (!email) {
@@ -18,6 +25,7 @@ class AuthUseCase {
     if (!user) {
       return null;
     }
+    await this.encrypt.compare(password, user.password);
 
     return null;
   }
