@@ -1,7 +1,10 @@
 import { MissingParamError } from '../../utils/errors';
 
+interface ILoadUserByEmailRepository{
+  load(email: string): Promise<any>;
+}
 class AuthUseCase {
-  constructor (readonly loadUserByEmailRepository: any) {}
+  constructor (readonly loadUserByEmailRepository: ILoadUserByEmailRepository) {}
 
   async auth (email: string, password: string) {
     if (!email) {
@@ -9,13 +12,6 @@ class AuthUseCase {
     }
     if (!password) {
       throw new MissingParamError('password');
-    }
-    if (!this.loadUserByEmailRepository) {
-      throw new MissingParamError('loadUserByEmailRepository');
-    }
-
-    if (!this.loadUserByEmailRepository.load) {
-      throw new MissingParamError('loadUserByEmailRepository');
     }
 
     const user = await this.loadUserByEmailRepository.load(email);
