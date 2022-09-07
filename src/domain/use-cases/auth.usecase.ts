@@ -7,10 +7,15 @@ interface ILoadUserByEmailRepository{
 interface IEncrypt{
   compare(password: string, hashedPassword: string): Promise<any>;
 }
+
+interface ITokenGenerator{
+  generate(userId: string): Promise<any>;
+}
 class AuthUseCase {
   constructor (
     private readonly loadUserByEmailRepository: ILoadUserByEmailRepository,
-    private readonly encrypt: IEncrypt
+    private readonly encrypt: IEncrypt,
+    private readonly tokenGenerator: ITokenGenerator
   ) {}
 
   async auth (email: string, password: string) {
@@ -30,6 +35,8 @@ class AuthUseCase {
     if (!isValid) {
       return null;
     }
+
+    await this.tokenGenerator.generate(user.id);
   }
 }
 
