@@ -61,7 +61,11 @@ const makeSut = () => {
   const loadUserByEmailRepositorySpy = makeLoadUserByEmailRepositorySpy();
   const tokenGeneratorSpy = makeTokenGenerator();
 
-  const sut = new AuthUseCase(loadUserByEmailRepositorySpy, encryptSpy, tokenGeneratorSpy);
+  const sut = new AuthUseCase({
+    loadUserByEmailRepository: loadUserByEmailRepositorySpy,
+    encrypt: encryptSpy,
+    tokenGenerator: tokenGeneratorSpy
+  });
 
   return { sut, loadUserByEmailRepositorySpy, encryptSpy, tokenGeneratorSpy };
 };
@@ -93,7 +97,7 @@ describe('Auth UseCase', () => {
 
   it('should throw if no repository is provided', async () => {
     // @ts-ignore
-    const sut = new AuthUseCase();
+    const sut = new AuthUseCase({});
 
     const promise = sut.auth('any_email@mail.com', 'any_password');
 

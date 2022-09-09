@@ -12,11 +12,15 @@ interface ITokenGenerator{
   generate(userId: string): Promise<any>;
 }
 class AuthUseCase {
-  constructor (
-    private readonly loadUserByEmailRepository: ILoadUserByEmailRepository,
-    private readonly encrypt: IEncrypt,
-    private readonly tokenGenerator: ITokenGenerator
-  ) {}
+  private readonly loadUserByEmailRepository: ILoadUserByEmailRepository;
+  private readonly encrypt: IEncrypt;
+  private readonly tokenGenerator: ITokenGenerator;
+
+  constructor ({ loadUserByEmailRepository, encrypt, tokenGenerator }) {
+    this.loadUserByEmailRepository = loadUserByEmailRepository;
+    this.encrypt = encrypt;
+    this.tokenGenerator = tokenGenerator;
+  }
 
   async auth (email: string, password: string) {
     if (!email) {
